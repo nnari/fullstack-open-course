@@ -15,13 +15,30 @@ const App = () => {
   return (
     <>
       <h1>Give feedback</h1>
-      <button onClick={() => handleFeedbackClick("good")}>Good</button>
-      <button onClick={() => handleFeedbackClick("neutral")}>Neutral</button>
-      <button onClick={() => handleFeedbackClick("bad")}>Bad</button>
+      <FeedbackButton handleClick={handleFeedbackClick} text="Good" />
+      <FeedbackButton handleClick={handleFeedbackClick} text="Neutral" />
+      <FeedbackButton handleClick={handleFeedbackClick} text="Bad" />
       <Statistics stats={feedback} />
     </>
   );
 };
+
+const FeedbackButton = ({ handleClick, text }) => (
+  <button onClick={() => handleClick(text.toLowerCase())}>{text}</button>
+);
+
+const StatisticLine = ({ text, value, isBold = false, trailingChar = "" }) =>
+  isBold ? (
+    <p>
+      <b>
+        {text} {value} {trailingChar}
+      </b>
+    </p>
+  ) : (
+    <p>
+      {text} {value} {trailingChar}
+    </p>
+  );
 
 const Statistics = ({ stats }) => {
   const total = Object.values(stats).reduce((acc, cur) => (acc += cur));
@@ -41,19 +58,16 @@ const Statistics = ({ stats }) => {
     <>
       <h1>Statistics</h1>
       {Object.entries(stats).map(([key, value]) => (
-        <p>
-          {key} {value}
-        </p>
+        <StatisticLine text={key} value={value} />
       ))}
-      <p>
-        <b>Total {Object.values(stats).reduce((acc, cur) => (acc += cur))}</b>
-      </p>
-      <p>
-        <b>Average {average}</b>
-      </p>
-      <p>
-        <b>Positive {positivePercentage}</b>
-      </p>
+      <StatisticLine text="total" value={total} isBold />
+      <StatisticLine text="average" value={average} isBold />
+      <StatisticLine
+        text="positive"
+        value={positivePercentage}
+        isBold
+        trailingChar="%"
+      />
     </>
   );
 };
