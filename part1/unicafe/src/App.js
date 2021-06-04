@@ -29,15 +29,21 @@ const FeedbackButton = ({ handleClick, text }) => (
 
 const StatisticLine = ({ text, value, isBold = false, trailingChar = "" }) =>
   isBold ? (
-    <p>
-      <b>
-        {text} {value} {trailingChar}
-      </b>
-    </p>
+    <tr>
+      <td>
+        <b>{text}</b>
+      </td>
+      <td>
+        {value} {trailingChar}
+      </td>
+    </tr>
   ) : (
-    <p>
-      {text} {value} {trailingChar}
-    </p>
+    <tr>
+      <td>{text}</td>
+      <td>
+        {value} {trailingChar}
+      </td>
+    </tr>
   );
 
 const Statistics = ({ stats }) => {
@@ -57,17 +63,21 @@ const Statistics = ({ stats }) => {
   return (
     <>
       <h1>Statistics</h1>
-      {Object.entries(stats).map(([key, value]) => (
-        <StatisticLine text={key} value={value} />
-      ))}
-      <StatisticLine text="total" value={total} isBold />
-      <StatisticLine text="average" value={average} isBold />
-      <StatisticLine
-        text="positive"
-        value={positivePercentage}
-        isBold
-        trailingChar="%"
-      />
+      <table>
+        <tbody>
+          {Object.entries(stats).map(([key, value], idx) => (
+            <StatisticLine text={key} value={value} key={idx} />
+          ))}
+          <StatisticLine text="total" value={total} isBold />
+          <StatisticLine text="average" value={average} isBold />
+          <StatisticLine
+            text="positive"
+            value={positivePercentage}
+            isBold
+            trailingChar="%"
+          />
+        </tbody>
+      </table>
     </>
   );
 };
