@@ -8,15 +8,22 @@ const App = () => {
   const exercises = [10, 7, 14];
   return (
     <>
-      <h1>{course}</h1>
-      {parts.map((el, idx) => (
-        <p>
-          {el} {exercises[idx]}
-        </p>
-      ))}
-      <p>Number of exercises {exercises.reduce((acc, cur) => (acc += cur))}</p>
+      <Header text={course} />
+      <Content parts={parts} exercises={exercises} />
+      <Total exercises={exercises} />
     </>
   );
 };
+
+const Header = ({ text }) => <h1>{text}</h1>;
+const Content = ({ parts, exercises }) =>
+  parts.map((el, idx) => (
+    <p>
+      {el} {exercises[idx]}
+    </p>
+  ));
+const Total = ({ exercises }) => (
+  <p>Number of exercises {exercises.reduce((acc, cur) => (acc += cur))}</p>
+);
 
 export default App;
