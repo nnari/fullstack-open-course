@@ -16,12 +16,18 @@ const App = () => {
 };
 
 const Header = ({ text }) => <h1>{text}</h1>;
+
 const Content = ({ parts, exercises }) =>
   parts.map((el, idx) => (
-    <p>
-      {el} {exercises[idx]}
-    </p>
+    <Part partName={el} exercisesAmount={exercises[idx]} />
   ));
+
+const Part = ({ partName, exercisesAmount }) => (
+  <p>
+    {partName} {exercisesAmount}
+  </p>
+);
+
 const Total = ({ exercises }) => (
   <p>Number of exercises {exercises.reduce((acc, cur) => (acc += cur))}</p>
 );
