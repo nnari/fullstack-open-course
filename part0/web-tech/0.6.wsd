@@ -1,0 +1,23 @@
+@startuml 0.5
+
+note over selain:
+Käyttäjä kirjoittaa noten tiedot tekstikenttään
+end note
+
+note over selain:
+Selain enkoodaa datan JSON-muotoon
+
+application/json
+{content: "test", date: "2021-06-04T14:20:54.361Z"}
+end note over 
+
+selain->palvelin: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+palvelin->selain: Palvelin vastaa {"message":"note created"}
+
+
+note over selain:
+Pyyntö on suoritettu, JavaScript lisää uuden noten sivulle koska pyyntö onnistui serverillä.
+end note
+
+
+@enduml
