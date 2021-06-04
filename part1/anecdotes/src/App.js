@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 const App = () => {
+  const [selected, setSelected] = useState(0);
   const anecdotes = [
     "If it hurts, do it more often.",
     "Adding manpower to a late software project makes it later!",
@@ -27,25 +28,30 @@ const App = () => {
     }, {})
   );
 
-  const getMostVotedIndex = () => {
-    let biggest = Object.entries(votes).reduce((acc, [key, value]) => {
-      if (value > prev) acc = key;
-      return acc;
-    }, 0);
-  };
+  const getMostVotedIndex = () =>
+    Object.keys(votes).reduce((a, b) => (votes[a] > votes[b] ? a : b));
 
-  const [selected, setSelected] = useState(0);
   return (
     <>
-      {votes && getMostVotedIndex()}
-      <p>{anecdotes[selected]}</p>
+      <Anecdote anecdote={anecdotes[selected]} />
       <p>{votes[selected]} votes</p>
       <button onClick={handleClick}>
         {selected ? "Next anecdote" : "Get an anecdote"}
       </button>
       <button onClick={handleVote}>Upvote</button>
+      <Anecdote anecdote={anecdotes[getMostVotedIndex()]} isMostVoted />
     </>
   );
 };
+
+const Anecdote = ({ anecdote, isMostVoted = false }) =>
+  isMostVoted ? (
+    <>
+      <h1>Most upvoted anecdote</h1>
+      <p>{anecdote}</p>
+    </>
+  ) : (
+    <p>{anecdote}</p>
+  );
 
 export default App;
