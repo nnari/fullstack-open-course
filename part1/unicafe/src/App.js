@@ -27,6 +27,16 @@ const Statistics = ({ stats }) => {
   const total = Object.values(stats).reduce((acc, cur) => (acc += cur));
   const average = (stats.good - stats.bad) / total;
   const positivePercentage = (stats.good / total) * 100;
+
+  // Check all feedback values on stats
+  if (Object.values(stats).every((val) => val === 0))
+    return (
+      <>
+        <h1>Statistics</h1>
+        <p>No feedback given</p>
+      </>
+    );
+
   return (
     <>
       <h1>Statistics</h1>
@@ -39,10 +49,10 @@ const Statistics = ({ stats }) => {
         <b>Total {Object.values(stats).reduce((acc, cur) => (acc += cur))}</b>
       </p>
       <p>
-        <b>Average {average ? average : 0}</b>
+        <b>Average {average}</b>
       </p>
       <p>
-        <b>Positive {positivePercentage ? positivePercentage : 0} %</b>
+        <b>Positive {positivePercentage}</b>
       </p>
     </>
   );
