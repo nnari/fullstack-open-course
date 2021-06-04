@@ -14,14 +14,24 @@ const App = () => {
     }));
   return (
     <>
+      <h1>Give feedback</h1>
       <button onClick={() => handleFeedbackClick("good")}>Good</button>
       <button onClick={() => handleFeedbackClick("neutral")}>Neutral</button>
       <button onClick={() => handleFeedbackClick("bad")}>Bad</button>
-      <p>
-        {feedback.bad} {feedback.good}
-      </p>
+      <Statistics stats={feedback} />
     </>
   );
 };
+
+const Statistics = ({ stats }) => (
+  <>
+    <h1>Statistics</h1>
+    {Object.entries(stats).map(([key, value]) => (
+      <p>
+        {key} {value}
+      </p>
+    ))}
+  </>
+);
 
 export default App;
