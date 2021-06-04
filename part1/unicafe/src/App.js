@@ -23,15 +23,29 @@ const App = () => {
   );
 };
 
-const Statistics = ({ stats }) => (
-  <>
-    <h1>Statistics</h1>
-    {Object.entries(stats).map(([key, value]) => (
+const Statistics = ({ stats }) => {
+  const total = Object.values(stats).reduce((acc, cur) => (acc += cur));
+  const average = (stats.good - stats.bad) / total;
+  const positivePercentage = (stats.good / total) * 100;
+  return (
+    <>
+      <h1>Statistics</h1>
+      {Object.entries(stats).map(([key, value]) => (
+        <p>
+          {key} {value}
+        </p>
+      ))}
       <p>
-        {key} {value}
+        <b>Total {Object.values(stats).reduce((acc, cur) => (acc += cur))}</b>
       </p>
-    ))}
-  </>
-);
+      <p>
+        <b>Average {average ? average : 0}</b>
+      </p>
+      <p>
+        <b>Positive {positivePercentage ? positivePercentage : 0} %</b>
+      </p>
+    </>
+  );
+};
 
 export default App;
