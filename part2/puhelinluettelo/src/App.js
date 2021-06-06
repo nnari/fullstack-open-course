@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 const App = () => {
-  const [people, setPeople] = useState([
-    { name: "Tatu Pesonen", number: "045 12312321312" },
-  ]);
+  const PORT = 3001;
+  const URL = `http://localhost:${PORT}/persons`;
+
+  const [people, setPeople] = useState([]);
   const [filter, setFilter] = useState("");
   const [newPerson, setNewPerson] = useState({});
+
+  useEffect(() => {
+    fetch(URL)
+      .then((response) => response.json())
+      .then((data) => setPeople(data));
+  }, []);
 
   const handleFilterChange = (event) => setFilter(event.target.value);
 
