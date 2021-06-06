@@ -71,12 +71,16 @@ const PhoneBook = ({ people }) => (
     <h2>Numbers</h2>
     <div>
       {people.map((p) => (
-        <p key={p.name}>
-          {p.name} {p.number}
-        </p>
+        <Person person={p} />
       ))}
     </div>
   </>
+);
+
+const Person = ({ person }) => (
+  <p key={person.name}>
+    {person.name} {person.number}
+  </p>
 );
 
 const AddPersonForm = ({ addHandler, changeHandler, person }) => (
